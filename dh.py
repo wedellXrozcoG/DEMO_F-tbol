@@ -19,7 +19,7 @@ def load_data():
         "age", "league_name", "nationality_name", "club_name", "preferred_foot"
     ]
 
-    # Nos aseguramos de que solo cargue lo necesario para que sea rápido
+    # Cargamos lo necesario para que sea rápido
     df = df[cols_interes]
     df = df.dropna(subset=["short_name", "value_eur", "overall"])
     return df
@@ -29,7 +29,7 @@ df_raw = load_data()
 
 # 3. Filtros Globales
 st.sidebar.header("Filtros")
-# Usamos sorted() para que la lista de la feria se vea ordenada alfabéticamente
+# Usamos sorted() para que la lista se vea ordenada alfabéticamente
 leagues = st.sidebar.multiselect("Liga:", options=sorted(df_raw["league_name"].dropna().unique()))
 nations = st.sidebar.multiselect("Nacionalidad:", options=sorted(df_raw["nationality_name"].dropna().unique()))
 
@@ -196,7 +196,7 @@ with tab2:
         st.plotly_chart(fig, use_container_width=True)
 
 with tab3:
-    st.subheader("📈 Relación Valor vs Potencial")
+    st.subheader("Relación Valor vs Potencial")
     if not df.empty:
         fig_scatter = px.scatter(
             df.head(500), x="value_eur", y="overall", size="potential", color="age",
